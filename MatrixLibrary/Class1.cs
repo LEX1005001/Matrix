@@ -220,7 +220,7 @@ namespace MatrixLibrary
             {
                 for (int j = 0; j < h; j++)
                 {
-                    matrix[j, i] = matrix[i, j];
+                    matrix[i, j] = matrix[j, i];
                 }
             }
         }
