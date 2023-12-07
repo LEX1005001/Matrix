@@ -211,7 +211,9 @@ namespace MatrixLibrary
             }
             return matrix1;
         }
-        
+        /// <summary>
+        /// Транспонирование матрицы
+        /// </summary>
         public void Transposition()
         {
             int w = matrix.GetLength(0);
