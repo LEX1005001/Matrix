@@ -44,6 +44,9 @@ namespace Matrix
             Console.WriteLine("Матрица после");
             matrix1.Transposition();
             Console.WriteLine(matrix1.ToString());
+            Console.WriteLine("Нахождение определителя в матрице:");
+            Console.WriteLine(matrix1.ToString()+" Матрица");
+            Console.WriteLine("Определитель данной матрицы: "+matrix1.Determinant());
            
 
 

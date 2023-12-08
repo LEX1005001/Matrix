@@ -14,11 +14,6 @@ namespace MatrixLibrary
         private int rows=0;
         private int columns=0;
 
-        /*public int Matrix 
-        {
-            
-        }*/
-
         public int Rows
         {
             get
@@ -226,6 +221,99 @@ namespace MatrixLibrary
                 }
             }
         }
+        /// <summary>
+        /// Вычисляет определитель матрицы
+        /// </summary>
+        /// <returns>опеределитель матрицы</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public double Determinant()
+        {
+            int size = (int)Math.Sqrt(matrix.Length);
+            if (size <= 0)
+            {
+                throw new ArgumentException("Матрица должна иметь размер больше нуля.");
+            }
+            if (size != matrix.GetLength(0) || size != matrix.GetLength(1))
+            {
+                throw new ArgumentException("Матрица должна быть квадратной.");
+            }
+
+            double determinant = 0;
+
+            if (size == 1)
+            {
+                determinant = matrix[0, 0];
+            }
+            else if (size == 2)
+            {
+                determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+            }
+            else
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    double[,] subMatrix = new double[size - 1, size - 1];
+                    for (int j = 1; j < size; j++)
+                    {
+                        int subMatrixColIndex = 0;
+                        for (int k = 0; k < size; k++)
+                        {
+                            if (k != i)
+                            {
+                                subMatrix[j - 1, subMatrixColIndex] = matrix[j, k];
+                                subMatrixColIndex++;
+                            }
+                        }
+                    }
+                    determinant += Math.Pow(-1, i) * matrix[0, i] * SubMatrixDeterminant(subMatrix);
+                }
+            }
+
+            return determinant;
+        }
+
+        /// <summary>
+        /// вычисляет определитель подматрицы
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns>определитель подматрицы</returns>
+        private double SubMatrixDeterminant(double[,] matrix)
+        {
+            int size = matrix.GetLength(0);
+            double determinant = 0;
+
+            if (size == 1)
+            {
+                determinant = matrix[0, 0];
+            }
+            else if (size == 2)
+            {
+                determinant = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+            }
+            else
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    double[,] subMatrix = new double[size - 1, size - 1];
+                    for (int j = 1; j < size; j++)
+                    {
+                        int subMatrixColIndex = 0;
+                        for (int k = 0; k < size; k++)
+                        {
+                            if (k != i)
+                            {
+                                subMatrix[j - 1, subMatrixColIndex] = matrix[j, k];
+                                subMatrixColIndex++;
+                            }
+                        }
+                    }
+                    determinant += Math.Pow(-1, i) * matrix[0, i] * SubMatrixDeterminant(subMatrix);
+                }
+            }
+
+            return determinant;
+        }
+
         /// <summary>
         /// конвертирует матрицу в строку для вывода
         /// </summary>
